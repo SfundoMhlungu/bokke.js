@@ -1,0 +1,31 @@
+{
+    "name": "dataFrame",
+    "version": "1.0.0",
+    "description": "dataFrame for the browser",
+    "main": "./lib/cjs/index.js",
+    "module": "./lib/esm/index.js",
+    "files": [
+        "lib/"
+    ],
+    "types": "lib/esm",
+    "scripts": {
+        "build": "tsc -p . && tsc -p tsconfig-cjs.json"
+    },
+    "keywords": [
+        "Data Science JS",
+        "EDA",
+        "Vanilla JS/TS",
+        "Exploratory Data Analysis",
+        "Data Plots",
+        "Machine Learning, ML",
+        "esModule and commonjs"
+    ],
+    "author": "Sfundo(sk) Mhlungu <mhlungusk@gmail.com> (https://sk07.netlify.app/)",
+    "license": "MIT",
+    "homepage": "",
+    "dependencies": {
+        "@types/chart.js": "^2.9.34",
+        "chart.js": "^3.5.1",
+        "wabt": "^1.0.24"
+    }
+}
