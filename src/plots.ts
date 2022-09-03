@@ -11,9 +11,9 @@ let scatter = []
 
 let el:HTMLDivElement = undefined
 
-function make_histogram(data:Array<any>, bucket_size:number){
+export function make_histogram(data:Array<any>, bucket_size:number){
       return new Promise((resolve,reject)=> {
-           const work = new Worker("./workers/plotWorker.js")
+           const work = new Worker(new URL('./workers/plotWorker.js', import.meta.url),  {type: 'module'})
 
            work.postMessage({type: "hist", points:data, size: bucket_size})
 

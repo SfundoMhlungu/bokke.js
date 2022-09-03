@@ -2,13 +2,14 @@
 
 ## Tutorial 
 
-
- 
-support both (esm and cjs) - import and require
+[Getting Started](https://dev.to/sfundomhlungu/javascript-dataframe-data-science-in-the-browser-6gl)
 
 
-source code coming soon git repo still empty, I am refactoring 
 
+I wrote most of bokke.js while I was noobish, If you happen to read the source, trust me I am sorry too, I wish I knew
+what was going in most parts, but it works.
+
+will refactor with time
 
 ## License 
  MIT

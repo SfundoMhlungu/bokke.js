@@ -6,7 +6,7 @@ import { counter } from "./workers/helpers"
 export function returnFrame(obj:Record<any, any>, data:Array<any>, headers: Array<any>, inPlace:boolean, callback:Function, meta?:Record<any, any>){
 //    console.log("return frame called")
     if(inPlace){
-        const work = new Worker("./workers/tableworker.js")
+        const work = new Worker(new URL("./workers/tableworker.js", import.meta.url),   {type: 'module'})
       
         work.postMessage(obj)
 
@@ -24,7 +24,7 @@ export function returnFrame(obj:Record<any, any>, data:Array<any>, headers: Arra
         }
     }
     else{
-        const work = new Worker("./workers/tableworker.js")
+        const work = new Worker(new URL("./workers/tableworker.js", import.meta.url),   {type: 'module'})
         work.postMessage(obj)
     
         work.onmessage = e => {
@@ -83,7 +83,7 @@ export function map(values:Record<any, any>, column:any,callback:Function, inPla
 
 export function head(len: number, callback:Function){
 
-    const work = new Worker("./workers/tableworker.js")
+    const work = new Worker(new URL("./workers/tableworker.js", import.meta.url),   {type: 'module'})
     // //.log(this.Pdata.)
     // let data:Array<any> = this.Pdata.data.slice(0, len)
     let headers:Array<any> = JSON.parse(JSON.stringify(this.Header_))
@@ -117,7 +117,7 @@ export function head(len: number, callback:Function){
 
 export function tail(len: number, callback:Function){
 
-    const work = new Worker("./workers/tableworker.js")
+    const work = new Worker(new URL("./workers/tableworker.js", import.meta.url),   {type: 'module'})
     // //.log(this.Pdata.)
     // let data:Array<any> = this.Pdata.data.slice(-len)
     // let header_ = ""
@@ -152,7 +152,7 @@ export function slice(start:number, end:number, callback:Function){
     start > end || start < 0 || end > data.length
     
     `) 
-  const work = new Worker("./workers/tableworker.js")
+  const work = new URL("./workers/tableworker.js", import.meta.url)
   // //.log(this.Pdata.)
   let headers:Array<any> = JSON.parse(JSON.stringify(this.Header_))
     let data: Array<Array<any>> = JSON.parse(JSON.stringify(this.Pdata.data.slice(start, end)))
@@ -254,7 +254,7 @@ export function isNull(callback:Function, column = undefined){
         
          
           
-          const work = new Worker("./workers/tableworker.js")
+          const work = new Worker(new URL("./workers/tableworker.js", import.meta.url), {type: 'module'})
          // change here
        work.postMessage(obj)
     
@@ -506,7 +506,7 @@ export function drop(inPlace:boolean = false,callback:Function,...values:Array<a
          
             this.returnFrame(obj, data, headers, inPlace, callback, meta)
         //   if(inPlace){
-        //         const work = new Worker("./workers/tableworker.js")
+        //         const work = new URL("./workers/tableworker.js", import.meta.url)
         //         let obj = {
         //         data: {
         //             data: data,
@@ -527,7 +527,7 @@ export function drop(inPlace:boolean = false,callback:Function,...values:Array<a
         //     }
         //   }
         //   else{
-        //     const work = new Worker("./workers/tableworker.js")
+        //     const work = new URL("./workers/tableworker.js", import.meta.url)
         //     let obj = {
         //     data: {
         //         data: data,
@@ -581,7 +581,7 @@ export function dropna(inPlace:boolean = false,callback:Function){
     this.returnFrame(obj, data, headers, inPlace, callback)
 
 //     if(inPlace){
-//         const work = new Worker("./workers/tableworker.js")
+//         const work = new URL("./workers/tableworker.js", import.meta.url)
 //         let obj = {
 //         data: {
 //             data: data,
@@ -602,7 +602,7 @@ export function dropna(inPlace:boolean = false,callback:Function){
 //     }
 //   }
 //   else{
-//     const work = new Worker("./workers/tableworker.js")
+//     const work = new URL("./workers/tableworker.js", import.meta.url)
 //     let obj = {
 //     data: {
 //         data: data,
@@ -650,7 +650,7 @@ export  function replace(toReplace:any,value:any, callback:Function, inPlace: fa
 
 
 //     if(inPlace){
-//         const work = new Worker("./workers/tableworker.js")
+//         const work = new URL("./workers/tableworker.js", import.meta.url)
 //         let obj = {
 //         data: {
 //             data: data,
@@ -671,7 +671,7 @@ export  function replace(toReplace:any,value:any, callback:Function, inPlace: fa
 //     }
 //   }
 //   else{
-//     const work = new Worker("./workers/tableworker.js")
+//     const work = new URL("./workers/tableworker.js", import.meta.url)
 //     let obj = {
 //     data: {
 //         data: data,
@@ -749,7 +749,7 @@ export function apply_along_axis(axis:number, fn: Function,where:string, callbac
     this.returnFrame(obj, data, headers, inPlace, callback)
 
 //     if(inPlace){
-//         const work = new Worker("./workers/tableworker.js")
+//         const work = new URL("./workers/tableworker.js", import.meta.url)
 //         let obj = {
 //         data: {
 //             data: data,
@@ -770,7 +770,7 @@ export function apply_along_axis(axis:number, fn: Function,where:string, callbac
 //     }
 //   }
 //   else{
-//     const work = new Worker("./workers/tableworker.js")
+//     const work = new URL("./workers/tableworker.js", import.meta.url)
 //     let obj = {
 //     data: {
 //         data: data,
@@ -895,4 +895,49 @@ export function writeCsv(name:string){
 
 
 
+}
+
+
+export function change(rowIndex:number, row:Array<any>, callback:Function){
+
+       if(rowIndex <= this.Pdata.data.length)
+           this.Pdata.data[rowIndex] = row
+       
+       else
+         throw new Error(`${rowIndex} is out of range`);
+         
+       
+        
+
+        let obj = {
+            data: {
+                data: this.Pdata.data,
+                header_:  this.Header_,
+                notNeeded: false
+    
+            }
+        }
+        this.returnFrame(obj, this.Pdata.data, this.Header_, true, callback)
+
+}
+
+export function appendRow(array:Array<any>, callback:Function){
+         array.unshift(this.Pdata.data.length)
+       if(array.length === this.Pdata.data[0].length){
+           this.Pdata.data.push(array)
+       }
+       else{
+        throw new Error(`${array} has insufficient columns: expected ${this.Pdata.data[0].length} but got ${array.length}`);
+       }
+
+
+       let obj = {
+        data: {
+            data: this.Pdata.data,
+            header_:  this.Header_,
+            notNeeded: false
+
+        }
+    }
+    this.returnFrame(obj, this.Pdata.data, this.Header_, true, callback)
 }

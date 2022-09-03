@@ -1,8 +1,10 @@
-import {writeCsv,resetIndex,rename,map, returnFrame, head, tail, slice, isNull, query, drop, dropna, replace, unique, getCol, apply_along_axis, group_by, count } from "./frameFuntions"
+import {writeCsv,resetIndex,rename,map, returnFrame, head, tail, slice, isNull, query, drop, dropna, replace, unique, getCol, apply_along_axis, group_by, count, change, appendRow } from "./frameFuntions"
 
 import {plot_histogram, make_scatter_matrix, twoD} from "./plots"
 
 import {workerMean} from "./stats"
+
+import {range} from "./mainHelpers"
 
 /**
  * data: 
@@ -117,25 +119,37 @@ Frame.prototype.hist = plot_histogram
 Frame.prototype.scatterM = make_scatter_matrix
 Frame.prototype.scatter = twoD
 
-// Frame.prototype.validate  = function(){
-//     let status:Record<any, any> =  {status: true}
-//     this.Pdata.data.forEach((arr:Array<any>,i:number)=> {
+Frame.prototype.validate  = function(){
+    let status:Record<any, any> =  {status: true}
+    // this.Pdata.data.forEach((arr:Array<any>,i:number)=> {
 
-//         arr.forEach((val, j)=> {
-//             if(typeof val === "string"){
-//                status.status = false;
-//                status.rowNcol = {i, j}
-//                return
-//             }
+    for(let i of range(this.Pdata.data.length)){
+       let arr = this.Pdata.data[i]
+        for(let j of arr){
+            if(typeof j === "string"){
+                status.status = false;
+                status.rowNcol = {i, j}
+                return
+            }
+        }
+    }
+
+
+        // arr.forEach((val, j)=> {
+        //     if(typeof val === "string"){
+        //        status.status = false;
+        //        status.rowNcol = {i, j}
+        //        return
+        //     }
          
-//         })
-//         return
+        // })
+        // return
 
-//     })
+    // })
 
-//     return status
+    return status
   
-// }
+}
 
 Frame.prototype.toWasm = function(){
 
@@ -172,6 +186,9 @@ Frame.prototype.newCol = function(arr:Array<any>, header:string,type:string, cal
 Frame.prototype.basicStat = workerMean
 
 Frame.prototype.writeCSV = writeCsv 
+
+Frame.prototype.swap = change
+Frame.prototype.appendRow = appendRow
 // function fillna(method, inplace)
 
 

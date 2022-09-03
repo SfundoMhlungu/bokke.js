@@ -7,7 +7,7 @@ let header_:any
 // not null rows
 let nullRows = []
 
-let secondWorker = new Worker("secondWorker.js")
+let secondWorker = new Worker(new URL("secondWorker.js", import.meta.url), {type: "module"})
 
 self.onmessage = e => {
     handleData(e.data.data, e.data.headers)

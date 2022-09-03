@@ -21,7 +21,7 @@ export default function dataFrame(file:any, tableReady:any, headers:Array<any> =
 }
 
 function readFile(file, headers:Array<any>){
-    const work = new Worker("./workers/worker.js")
+    const work =  new Worker(new URL("./workers/worker.js", import.meta.url),   {type: 'module'})
  
     let reader = new FileReader()
     reader.readAsText(file.files[0])
@@ -53,7 +53,7 @@ function toTable(data:Record<any, any>){
     // do everthing here to dereference [[]]
     // console.log(data)
     data.notNeeded = false
-    const work = new Worker("./workers/tableworker.js")
+      const work = new Worker(new URL("./workers/tableworker.js", import.meta.url), {type: 'module'})
      work.postMessage({data: data})
 
      work.onmessage = e => {

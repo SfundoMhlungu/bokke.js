@@ -27,7 +27,7 @@ let index = 0
 
 
 export function workerMean(){
-    let work = new Worker("./workers/statsWorker.js")
+    let work =  new Worker(new URL("./workers/statsWorker.js", import.meta.url), {type: 'module'})
    if(meta === undefined){
        basicstats = []
        header  = []
@@ -70,7 +70,7 @@ export function workerMean(){
 }
 
 function median(cols:Array<any>){
-    const work = new Worker("./workers/statsWorker.js")
+    const work = new Worker(new URL("./workers/statsWorker.js", import.meta.url), {type: 'module'})
     work.postMessage({type: "med", data: cols})
 
     work.onmessage = e => {
@@ -85,7 +85,7 @@ function median(cols:Array<any>){
 }
 
 function range(cols:Array<any>){
-    const work = new Worker("./workers/statsWorker.js")
+    const work = new Worker(new URL("./workers/statsWorker.js", import.meta.url), {type: 'module'})
     work.postMessage({type: "range", data: cols})
 
 
@@ -113,7 +113,7 @@ function variance(cols:Array<number>){
 }
 
 function std(cols:Array<number>){
-    const work = new Worker("./workers/statsWorker.js")
+    const work = new Worker(new URL("./workers/statsWorker.js", import.meta.url), {type: 'module'})
     work.postMessage({type: "std", data: cols})
     
     work.onmessage = e => {

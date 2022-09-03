@@ -8,8 +8,17 @@ export function getCol(data:Array<any>, i:number){
     return col
 }
 
-export function range(n:number){
-    let i = 0
+export function range(n:number, end:number | undefined = undefined, step:number| undefined = undefined){
+    let i = 0 
+    let j = n
+    let m = 1
+
+    if(end)
+      j = end; i = n;
+    if(step)
+        m = step
+    
+   
     return  {
         [Symbol.iterator]:() => {
 
@@ -17,9 +26,9 @@ export function range(n:number){
                 next(){
                
                   
-                    while(i !== n){
+                    while(i !== j){
                         let temp = i
-                        i++
+                        i + m
 
                         return {
                             value: temp, 
