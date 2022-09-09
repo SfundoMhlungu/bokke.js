@@ -1,6 +1,6 @@
 {
     "name": "bokke.js",
-    "version": "1.0.3",
+    "version": "1.0.6",
     "description": "dataFrame for the browser",
     "main": "./lib/cjs/index.js",
     "module": "./lib/esm/index.js",
@@ -22,7 +22,8 @@
     ],
     "author": "Sfundo(sk) Mhlungu <mhlungusk@gmail.com> (https://sk07.netlify.app/)",
     "license": "MIT",
-    "homepage": "",
+    "github": "https://github.com/SfundoMhlungu/bokke.js.git",
+    "homepage": "https://dev.to/sfundomhlungu/javascript-dataframe-data-science-in-the-browser-6gl", 
     "dependencies": {
         "@types/chart.js": "^2.9.34",
         "chart.js": "^3.5.1",

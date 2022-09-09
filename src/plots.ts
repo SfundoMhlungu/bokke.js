@@ -30,7 +30,7 @@ export function make_histogram(data:Array<any>, bucket_size:number){
 }
 
 
-export async function plot_histogram(bucket_size:number, title:any ="", data:Array<any>){
+export async function plot_histogram(bucket_size:number, title:any ="", data:Array<any>, con:HTMLElement){
     // console.log(data)
     if(barChart){
         barChart.destroy()
@@ -64,7 +64,7 @@ export async function plot_histogram(bucket_size:number, title:any ="", data:Arr
         div.className = "hist"
       
         div.appendChild(c)
-        document.body.appendChild(div)
+        con.appendChild(div)
         // document.getElementById("har")?.appendChild(c)
         barChart =   new Chart(c.id, {type: "bar", data: dataObj});
       
@@ -74,19 +74,20 @@ export async function plot_histogram(bucket_size:number, title:any ="", data:Arr
 
 // chart matrix 
 
-export function make_scatter_matrix(elementId:string){
+export function make_scatter_matrix(con:HTMLDivElement,elementId:string){
      const data:Array<any> = this.Pdata.data
     const num_columns = data[0].length
-        el = document.createElement("div")
-        el.id = "scatter"  
+    console.log(data, num_columns)
+        el = document.createElement('div')
+        // el.id = "scatter"  
         el.style.display = "grid"
         let str = ""
         for(let _ of range(num_columns)){
             str += " 1fr"
         }
-        console.log(str)
+        console.log(str, "fr string")
         el.style.gridTemplateColumns = str
-       document.body.appendChild(el)
+       con.appendChild(el)
      
     while(scatter.length !== 0){
         let obj = scatter.pop()
@@ -139,7 +140,9 @@ function make_scatter_chart(x:Array<any>, y:Array<any>, i:number, j:number, elem
     div.style.height = "200px"
 
     div.appendChild(c)
+    console.log(div);
     el?.appendChild(div)
+    console.log(el)
 
     scatter.push(new Chart(c, chartObj))
 
@@ -149,7 +152,7 @@ function make_scatter_chart(x:Array<any>, y:Array<any>, i:number, j:number, elem
 
 
 let two:any = undefined
-export function twoD(xs:Array<any>,colors:Array<any>, ...ys:Array<any>){
+export function twoD(xs:Array<any>,colors:Array<any>, con:HTMLDivElement , ...ys:Array<any>){
     if(two){
         two.destroy()
     }
@@ -197,13 +200,13 @@ export function twoD(xs:Array<any>,colors:Array<any>, ...ys:Array<any>){
     c.height = 600
     c.id = "2D"
     let div:HTMLDivElement = document.createElement("div")
-    div.style.width = "600px"
-    div.style.height = "600px"
+    div.style.width = "100%"
+    div.style.height = "500px"
     div.classList.add("twoD")
 
     div.appendChild(c)
 
-    document.body.appendChild(div)
+    con.appendChild(div)
     const chartObj = {
         type: "scatter",
         data: dataObj,
