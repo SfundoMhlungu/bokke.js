@@ -6,10 +6,7 @@
 
 
 
-I wrote most of bokke.js while I was noobish, If you happen to read the source, trust me I am sorry too, I wish I knew
-what was going in most parts, but it works.
-
-will refactor with time
+I wrote most of bokke.js in about 4 days I needed a tool quickly, I am working on refacroing most of the code, and applying DRY.
 
 ## License 
  MIT
