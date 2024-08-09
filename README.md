@@ -6,7 +6,7 @@
 
 
 
-I wrote most of bokke.js in about 4 days I needed a tool quickly, I am working on refacroing most of the code, and applying DRY.
+I wrote most of bokke.js in about 4 days I needed a tool quickly, I am working on refactoring most of the code, and applying DRY.
 
 ## License 
  MIT
